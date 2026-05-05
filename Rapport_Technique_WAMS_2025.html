@@ -1,0 +1,1050 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rapport Technique — Projet WAMS 2025</title>
+  <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+@page {
+  size: A4;
+  margin: 2cm;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 11pt;
+  line-height: 1.7;
+  color: #1a1a2e;
+  background: #fff;
+  max-width: 210mm;
+  margin: 0 auto;
+  padding: 2cm;
+}
+
+h1 {
+  font-size: 26pt;
+  font-weight: 900;
+  color: #0d1b2a;
+  border-bottom: 4px solid #1b4965;
+  padding-bottom: 12px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-size: 16pt;
+  font-weight: 700;
+  color: #1b4965;
+  border-bottom: 2px solid #e0e7ef;
+  padding-bottom: 8px;
+  margin-top: 36px;
+  margin-bottom: 16px;
+  page-break-after: avoid;
+}
+
+h3 {
+  font-size: 12pt;
+  font-weight: 700;
+  color: #2d6a8e;
+  margin-top: 24px;
+  margin-bottom: 10px;
+  page-break-after: avoid;
+}
+
+h4 {
+  font-size: 11pt;
+  font-weight: 600;
+  color: #415a77;
+}
+
+p { margin: 8px 0; }
+
+strong { font-weight: 700; color: #0d1b2a; }
+
+a { color: #1b4965; text-decoration: none; }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  font-size: 10pt;
+  page-break-inside: avoid;
+}
+
+thead th {
+  background: #1b4965;
+  color: #fff;
+  font-weight: 700;
+  text-align: left;
+  padding: 10px 14px;
+  font-size: 9pt;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+tbody td {
+  padding: 8px 14px;
+  border-bottom: 1px solid #e0e7ef;
+}
+
+tbody tr:nth-child(even) { background: #f8fafc; }
+tbody tr:hover { background: #eef4fa; }
+
+/* Code blocks */
+pre {
+  background: #0d1b2a;
+  color: #e0e7ef;
+  padding: 16px 20px;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 9pt;
+  line-height: 1.5;
+  overflow-x: auto;
+  page-break-inside: avoid;
+  margin: 12px 0;
+  border-left: 4px solid #1b4965;
+}
+
+code {
+  font-family: 'JetBrains Mono', 'Consolas', monospace;
+  font-size: 9pt;
+  background: #eef4fa;
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: #1b4965;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+  color: inherit;
+}
+
+/* Lists */
+ul, ol {
+  padding-left: 24px;
+  margin: 8px 0;
+}
+
+li { margin: 4px 0; }
+
+/* Horizontal rules */
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, #1b4965, #e0e7ef);
+  margin: 30px 0;
+}
+
+/* Status badges in tables */
+td:last-child {
+  white-space: nowrap;
+}
+
+/* Print-specific */
+@media print {
+  body { padding: 0; max-width: 100%; }
+  h1, h2 { page-break-after: avoid; }
+  table, pre { page-break-inside: avoid; }
+}
+
+/* Cover section styling - first heading */
+body > h1:first-child {
+  text-align: center;
+  font-size: 30pt;
+  border-bottom: none;
+  margin-bottom: 0;
+}
+
+body > h2:first-of-type {
+  text-align: center;
+  font-size: 13pt;
+  color: #415a77;
+  border-bottom: none;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+/* TOC styling */
+.toc {
+  background: #f8fafc;
+  border: 1px solid #e0e7ef;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.toc ul { list-style: none; padding-left: 16px; }
+.toc > ul { padding-left: 0; }
+.toc li { margin: 4px 0; }
+.toc a { color: #1b4965; font-weight: 500; }
+</style>
+</head>
+<body>
+<h1 id="rapport-technique-projet-wams-2025">Rapport Technique — Projet WAMS 2025</h1>
+<h2 id="pipeline-microservices-complet-verifai-detection-de-manipulation-dimages-par-intelligence-artificielle">Pipeline Microservices Complet : VerifAI — Détection de Manipulation d'Images par Intelligence Artificielle</h2>
+<hr />
+<p><strong>Université :</strong> UMBB, Faculté des Sciences, Département d'Informatique
+<strong>Formation :</strong> Master 1 I2A/GL — Semestre 2
+<strong>Matière :</strong> WAMS (Web Application &amp; Microservices)
+<strong>Année universitaire :</strong> 2024–2025</p>
+<hr />
+<h2 id="table-des-matieres">Table des matières</h2>
+<ol>
+<li><a href="#1-contexte-et-objectifs">Contexte et objectifs</a></li>
+<li><a href="#2-architecture-générale">Architecture générale</a></li>
+<li><a href="#3-services-métier">Services métier</a></li>
+<li><a href="#4-infrastructure-technique">Infrastructure technique</a></li>
+<li><a href="#5-interface-utilisateur-uiux">Interface utilisateur (UI/UX)</a></li>
+<li><a href="#6-communication-asynchrone">Communication asynchrone</a></li>
+<li><a href="#7-sécurité-et-authentification">Sécurité et authentification</a></li>
+<li><a href="#8-résilience-et-tolérance-aux-pannes">Résilience et tolérance aux pannes</a></li>
+<li><a href="#9-déploiement">Déploiement</a></li>
+<li><a href="#10-conformité-aux-exigences">Conformité aux exigences</a></li>
+<li><a href="#11-guide-de-déploiement">Guide de déploiement</a></li>
+<li><a href="#12-conclusion">Conclusion</a></li>
+</ol>
+<hr />
+<h2 id="1-contexte-et-objectifs">1. Contexte et objectifs</h2>
+<h3 id="11-problematique">1.1 Problématique</h3>
+<p>La prolifération des outils de manipulation d'images (Photoshop, deepfakes, GANs) représente une menace croissante pour la confiance numérique. Les domaines du journalisme, de la justice, de l'assurance et des réseaux sociaux nécessitent des outils fiables pour distinguer les images authentiques des images altérées.</p>
+<h3 id="12-solution-proposee-verifai">1.2 Solution proposée — VerifAI</h3>
+<p><strong>VerifAI</strong> est une plateforme web de vérification d'authenticité d'images basée sur l'intelligence artificielle. Elle permet à un utilisateur de :</p>
+<ul>
+<li><strong>Téléverser</strong> des images dans une galerie personnelle sécurisée</li>
+<li><strong>Analyser</strong> automatiquement chaque image via un modèle d'IA de détection de deepfakes</li>
+<li><strong>Consulter</strong> les résultats de vérification (Authentique / Modifié) avec un score de confiance</li>
+<li><strong>Organiser</strong> ses images en albums, tags et favoris</li>
+<li><strong>Suivre</strong> l'historique complet des actions via une piste d'audit</li>
+</ul>
+<h3 id="13-utilisateurs-cibles">1.3 Utilisateurs cibles</h3>
+<table>
+<thead>
+<tr>
+<th>Rôle</th>
+<th>Description</th>
+<th>Accès</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Utilisateur standard</strong></td>
+<td>Journaliste, chercheur, particulier</td>
+<td>Gestion de ses images, analyse IA, consultation historique</td>
+</tr>
+<tr>
+<td><strong>Administrateur</strong></td>
+<td>Responsable de la plateforme</td>
+<td>Gestion des utilisateurs, modification des rôles, supervision</td>
+</tr>
+</tbody>
+</table>
+<h3 id="14-justification-du-domaine">1.4 Justification du domaine</h3>
+<p>Le choix de la détection de manipulation d'images comme domaine applicatif est motivé par :
+- <strong>Pertinence sociétale</strong> : lutte contre la désinformation visuelle
+- <strong>Richesse technique</strong> : intégration IA, traitement d'images, flux asynchrones
+- <strong>Adéquation microservices</strong> : séparation naturelle entre authentification, stockage, analyse IA et journalisation</p>
+<hr />
+<h2 id="2-architecture-generale">2. Architecture générale</h2>
+<h3 id="21-vue-densemble">2.1 Vue d'ensemble</h3>
+<pre class="highlight"><code>Internet (Port 80)
+       │
+       ▼
+┌──────────────────────────────────────────────────────────────┐
+│  Traefik v2.11 — Reverse Proxy &amp; Load Balancer               │
+│  Dashboard : port 8080                                       │
+└────┬──────────┬──────────┬──────────┬──────────┬────────────┘
+     │          │          │          │          │
+     ▼          ▼          ▼          ▼          ▼
+  /api/auth  /gallery/  /api/      /api/hist   / (frontend)
+  Auth Svc   Gallery    AI Svc     Historique  Next.js
+  :8000      :8001      :8002      :8003       :3000
+     │          │                      ▲
+     │          ├──► RabbitMQ ─────────┘
+     │          │    (wams.action_logs)
+     │          │          │
+     │          │    Historique Consumer
+     │          │    (worker asynchrone)
+     ▼          ▼          ▼
+┌──────────────────────────────────────┐
+│  Consul — Service Registry           │
+│  Port 8500                           │
+└──────────────────────────────────────┘
+     │
+     ▼
+┌──────────────────────────────────────┐
+│  PostgreSQL 16 — 4 bases isolées     │
+│  auth_db │ gallery_db │ ai_db │      │
+│  historique_db                       │
+└──────────────────────────────────────┘
+</code></pre>
+
+<h3 id="22-principes-architecturaux">2.2 Principes architecturaux</h3>
+<ul>
+<li><strong>Isolation des données</strong> : chaque microservice possède sa propre base de données PostgreSQL</li>
+<li><strong>Communication synchrone</strong> : API REST via Traefik (routage par préfixe de chemin)</li>
+<li><strong>Communication asynchrone</strong> : RabbitMQ pour la journalisation d'actions</li>
+<li><strong>Découverte de services</strong> : Consul pour l'enregistrement et la résolution dynamique</li>
+<li><strong>Tolérance aux pannes</strong> : chaque service peut tomber indépendamment sans affecter les autres</li>
+</ul>
+<h3 id="23-services-et-ports">2.3 Services et ports</h3>
+<table>
+<thead>
+<tr>
+<th>Service</th>
+<th>Port interne</th>
+<th>Route Traefik</th>
+<th>Priorité</th>
+<th>Technologie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Auth Service</td>
+<td>8000</td>
+<td><code>/api/auth/</code></td>
+<td>30</td>
+<td>Django 5 + JWT</td>
+</tr>
+<tr>
+<td>Gallery Service</td>
+<td>8001</td>
+<td><code>/gallery/</code></td>
+<td>20</td>
+<td>Django 5</td>
+</tr>
+<tr>
+<td>AI Service</td>
+<td>8002</td>
+<td><code>/api/</code></td>
+<td>10</td>
+<td>Django 5 + PyTorch</td>
+</tr>
+<tr>
+<td>Historique Service</td>
+<td>8003</td>
+<td><code>/api/history/</code></td>
+<td>30</td>
+<td>Django 5</td>
+</tr>
+<tr>
+<td>Historique Consumer</td>
+<td>—</td>
+<td>(worker)</td>
+<td>—</td>
+<td>Python + pika</td>
+</tr>
+<tr>
+<td>Frontend</td>
+<td>3000</td>
+<td><code>/</code></td>
+<td>1</td>
+<td>Next.js 15</td>
+</tr>
+<tr>
+<td>Traefik</td>
+<td>80 / 8080</td>
+<td>—</td>
+<td>—</td>
+<td>Traefik v2.11</td>
+</tr>
+<tr>
+<td>Consul</td>
+<td>8500</td>
+<td>—</td>
+<td>—</td>
+<td>Consul 1.19</td>
+</tr>
+<tr>
+<td>RabbitMQ</td>
+<td>5672 / 15672</td>
+<td>—</td>
+<td>—</td>
+<td>RabbitMQ 3.13</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>5432</td>
+<td>—</td>
+<td>—</td>
+<td>PostgreSQL 16</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-services-metier">3. Services métier</h2>
+<h3 id="31-authentication-service-auth-service">3.1 Authentication Service (<code>auth-service</code>)</h3>
+<p><strong>Rôle :</strong> Gestion des utilisateurs, authentification JWT et contrôle d'accès basé sur les rôles (RBAC).</p>
+<p><strong>Modèle de données :</strong></p>
+<pre class="highlight"><code class="language-python">class User(AbstractUser):
+    class Role(models.TextChoices):
+        USER  = 'user',  'Standard User'
+        ADMIN = 'admin', 'Administrator'
+    role = models.CharField(max_length=10, choices=Role.choices, default=Role.USER)
+</code></pre>
+
+<p><strong>Endpoints REST :</strong></p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/api/auth/register/</code></td>
+<td>Inscription d'un nouvel utilisateur</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/api/auth/login/</code></td>
+<td>Connexion → retourne un token JWT</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/auth/health/</code></td>
+<td>Health check pour Consul/Traefik</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/auth/users/</code></td>
+<td>Liste des utilisateurs (admin uniquement)</td>
+</tr>
+<tr>
+<td>PATCH</td>
+<td><code>/api/auth/users/{id}/role/</code></td>
+<td>Modifier le rôle d'un utilisateur (admin)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Payload JWT :</strong></p>
+<pre class="highlight"><code class="language-json">{
+  &quot;user_id&quot;: 1,
+  &quot;username&quot;: &quot;hicham&quot;,
+  &quot;email&quot;: &quot;hicham@verifai.com&quot;,
+  &quot;role&quot;: &quot;user&quot;,
+  &quot;exp&quot;: 1719849600,
+  &quot;iat&quot;: 1719763200
+}
+</code></pre>
+
+<h3 id="32-galleryimage-service-gallery-service">3.2 GalleryImage Service (<code>gallery-service</code>)</h3>
+<p><strong>Rôle :</strong> Gestion CRUD complète des images, albums, tags et favoris. Orchestre la vérification IA et publie les événements vers RabbitMQ.</p>
+<p><strong>Modèle de données principal :</strong></p>
+<pre class="highlight"><code class="language-python">class Image(models.Model):
+    title = models.CharField(max_length=255)
+    image_file = models.ImageField(upload_to='gallery/images/%Y/%m/%d/')
+    thumbnail = models.ImageField(...)
+    user_id = models.IntegerField(db_index=True)
+    album = models.ForeignKey(Album, ...)
+    tags = models.ManyToManyField(Tag, ...)
+    is_favorite = models.BooleanField(default=False)
+    verification_status = models.CharField(choices=VerificationStatus.choices)
+    ai_confidence_score = models.FloatField(null=True)
+    ai_report = models.JSONField(null=True)
+    original_filename = models.CharField(max_length=500)
+    file_size = models.PositiveIntegerField()
+    mime_type = models.CharField(max_length=100)
+    width = models.PositiveIntegerField()
+    height = models.PositiveIntegerField()
+</code></pre>
+
+<p><strong>Endpoints REST :</strong></p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GET</td>
+<td><code>/gallery/api/images/</code></td>
+<td>Lister les images de l'utilisateur</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/gallery/api/images/</code></td>
+<td>Téléverser une image (multipart)</td>
+</tr>
+<tr>
+<td>DELETE</td>
+<td><code>/gallery/api/images/{id}/</code></td>
+<td>Supprimer une image</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/gallery/api/images/{id}/verify/</code></td>
+<td>Lancer la vérification IA</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/gallery/api/images/{id}/favorite/</code></td>
+<td>Basculer le statut favori</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/gallery/api/albums/</code></td>
+<td>Lister les albums</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/gallery/api/albums/</code></td>
+<td>Créer un album</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/gallery/api/tags/</code></td>
+<td>Lister les tags</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/gallery/api/stats/</code></td>
+<td>Statistiques (total, pending, edited, unedited)</td>
+</tr>
+<tr>
+<td>POST</td>
+<td><code>/gallery/api/warmup/</code></td>
+<td>Amorcer le cache d'authentification</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/gallery/api/health/</code></td>
+<td>Health check</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-ai-service-ai-service">3.3 AI Service (<code>ai-service</code>)</h3>
+<p><strong>Rôle :</strong> Détection de manipulation d'images par réseau de neurones profond.</p>
+<p><strong>Endpoints REST :</strong></p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/api/analyze/</code></td>
+<td>Analyser une image (retourne verdict + confiance)</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/status/</code></td>
+<td>État du modèle IA</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/health/</code></td>
+<td>Health check</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Réponse type :</strong></p>
+<pre class="highlight"><code class="language-json">{
+  &quot;is_modified&quot;: true,
+  &quot;confidence&quot;: 87.3,
+  &quot;model&quot;: &quot;Neural Deep Analysis&quot;,
+  &quot;processing_time&quot;: &quot;1.2s&quot;
+}
+</code></pre>
+
+<h3 id="34-historique-service-historique-service">3.4 Historique Service (<code>historique-service</code>)</h3>
+<p><strong>Rôle :</strong> Piste d'audit — enregistre chaque action significative des utilisateurs.</p>
+<p><strong>Modèle de données :</strong></p>
+<pre class="highlight"><code class="language-python">class ActionLog(models.Model):
+    class ActionType(models.TextChoices):
+        IMAGE_UPLOADED = 'image_uploaded'
+        IMAGE_DELETED  = 'image_deleted'
+        IMAGE_VERIFIED = 'image_verified'
+        USER_LOGIN     = 'user_login'
+        USER_REGISTERED = 'user_registered'
+    user_id = models.IntegerField(db_index=True)
+    action = models.CharField(max_length=50, choices=ActionType.choices)
+    details = models.JSONField(default=dict)
+    service = models.CharField(max_length=100)
+    timestamp = models.DateTimeField(auto_now_add=True)
+</code></pre>
+
+<p><strong>Endpoints REST :</strong></p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Endpoint</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>POST</td>
+<td><code>/api/history/log/</code></td>
+<td>Enregistrer une action (appelé par les services)</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/history/logs/</code></td>
+<td>Consulter les logs (filtres: user, action, service)</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/history/stats/</code></td>
+<td>Statistiques agrégées par type d'action</td>
+</tr>
+<tr>
+<td>GET</td>
+<td><code>/api/history/health/</code></td>
+<td>Health check</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="4-infrastructure-technique">4. Infrastructure technique</h2>
+<h3 id="41-traefik-reverse-proxy-load-balancer">4.1 Traefik — Reverse Proxy &amp; Load Balancer</h3>
+<p><strong>Configuration</strong> (<code>traefik/traefik.yml</code>) :</p>
+<pre class="highlight"><code class="language-yaml">api:
+  dashboard: true
+  insecure: true
+entryPoints:
+  web:
+    address: &quot;:80&quot;
+providers:
+  docker:
+    endpoint: &quot;unix:///var/run/docker.sock&quot;
+    exposedByDefault: false
+    network: wams-net
+</code></pre>
+
+<p>Le routage est défini via des labels Docker dans <code>docker-compose.yml</code>. Traefik découvre automatiquement les conteneurs et les route selon le préfixe de chemin (PathPrefix) avec un système de priorités pour éviter les conflits.</p>
+<h3 id="42-consul-service-registry-discovery">4.2 Consul — Service Registry &amp; Discovery</h3>
+<p>Chaque microservice s'enregistre auprès de Consul au démarrage via <code>consul_client.py</code> :</p>
+<pre class="highlight"><code class="language-python">def register_service():
+    c = consul.Consul(host=CONSUL_HOST, port=CONSUL_PORT)
+    c.agent.service.register(
+        name=SERVICE_NAME,
+        service_id=f&quot;{SERVICE_NAME}-{SERVICE_HOST}&quot;,
+        address=SERVICE_HOST,
+        port=int(SERVICE_PORT),
+        check=consul.Check.http(
+            f&quot;http://{SERVICE_HOST}:{SERVICE_PORT}/api/health/&quot;,
+            interval=&quot;10s&quot;, timeout=&quot;5s&quot;
+        ),
+    )
+</code></pre>
+
+<p>La résolution de service permet à Gallery de découvrir dynamiquement l'URL de Auth ou AI sans configuration statique.</p>
+<h3 id="43-postgresql-bases-de-donnees-isolees">4.3 PostgreSQL — Bases de données isolées</h3>
+<p>Une instance PostgreSQL unique héberge 4 bases de données isolées :</p>
+<pre class="highlight"><code class="language-sql">-- init-multiple-db.sql
+CREATE DATABASE gallery_db;
+CREATE DATABASE ai_db;
+CREATE DATABASE historique_db;
+-- auth_db créée par POSTGRES_DB
+</code></pre>
+
+<table>
+<thead>
+<tr>
+<th>Base</th>
+<th>Service</th>
+<th>Tables principales</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>auth_db</code></td>
+<td>Auth Service</td>
+<td><code>users</code> (AbstractUser + role)</td>
+</tr>
+<tr>
+<td><code>gallery_db</code></td>
+<td>Gallery Service</td>
+<td><code>image</code>, <code>album</code>, <code>tag</code>, <code>imageverification</code></td>
+</tr>
+<tr>
+<td><code>ai_db</code></td>
+<td>AI Service</td>
+<td>Résultats d'analyse</td>
+</tr>
+<tr>
+<td><code>historique_db</code></td>
+<td>Historique Service</td>
+<td><code>actionlog</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="5-interface-utilisateur-uiux">5. Interface utilisateur (UI/UX)</h2>
+<h3 id="51-technologies">5.1 Technologies</h3>
+<ul>
+<li><strong>Framework :</strong> Next.js 15 (React 19)</li>
+<li><strong>Style :</strong> CSS personnalisé avec design system glassmorphism</li>
+<li><strong>Icônes :</strong> Lucide React</li>
+<li><strong>Build :</strong> Production optimisée, servie via Traefik</li>
+</ul>
+<h3 id="52-pages-de-lapplication">5.2 Pages de l'application</h3>
+<table>
+<thead>
+<tr>
+<th>Page</th>
+<th>Route</th>
+<th>Fonctionnalité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Login / Register</strong></td>
+<td><code>/login</code>, <code>/register</code></td>
+<td>Authentification JWT</td>
+</tr>
+<tr>
+<td><strong>Gallery (Dashboard)</strong></td>
+<td><code>/dashboard</code></td>
+<td>Galerie d'images, statistiques, statut services</td>
+</tr>
+<tr>
+<td><strong>Albums</strong></td>
+<td><code>/dashboard/albums</code></td>
+<td>Organisation en albums</td>
+</tr>
+<tr>
+<td><strong>Favoris</strong></td>
+<td><code>/dashboard/favorites</code></td>
+<td>Images marquées comme favorites</td>
+</tr>
+<tr>
+<td><strong>Analyze</strong></td>
+<td><code>/dashboard/analyze</code></td>
+<td>Upload &amp; vérification IA + Quick Scan</td>
+</tr>
+<tr>
+<td><strong>History</strong></td>
+<td><code>/dashboard/history</code></td>
+<td>Piste d'audit + historique de vérifications</td>
+</tr>
+</tbody>
+</table>
+<h3 id="53-fonctionnalites-cles-du-frontend">5.3 Fonctionnalités clés du frontend</h3>
+<ul>
+<li><strong>Monitoring temps réel</strong> : polling santé toutes les 8 secondes avec indicateurs vert/rouge</li>
+<li><strong>Auto-recovery</strong> : rechargement automatique des données à la reprise d'un service</li>
+<li><strong>Quick Scan</strong> : analyse IA directe sans sauvegarde en galerie (fonctionne même si Gallery est hors ligne)</li>
+<li><strong>Recherche et filtres</strong> : recherche par nom, filtrage par statut de vérification</li>
+</ul>
+<hr />
+<h2 id="6-communication-asynchrone">6. Communication asynchrone</h2>
+<h3 id="61-architecture-rabbitmq">6.1 Architecture RabbitMQ</h3>
+<pre class="highlight"><code>GalleryImage_Service                    Historique_Service
+       │                                       ▲
+       │  publish_action_log()                  │
+       ▼                                        │
+   ┌───────────────────────────┐                │
+   │  RabbitMQ                 │                │
+   │  Queue: wams.action_logs  │──► Consumer ───┘
+   │  Durable: oui             │    (conteneur dédié)
+   │  Persistent: oui          │
+   └───────────────────────────┘
+</code></pre>
+
+<h3 id="62-publication-gallery-rabbitmq">6.2 Publication (Gallery → RabbitMQ)</h3>
+<pre class="highlight"><code class="language-python"># messaging.py
+def publish_action_log(user_id, action, details=None):
+    message = {
+        'user_id': user_id,
+        'action':  action,
+        'details': details or {},
+        'service': 'GalleryImage_Service',
+    }
+    channel.basic_publish(
+        exchange='',
+        routing_key='wams.action_logs',
+        body=json.dumps(message),
+        properties=pika.BasicProperties(
+            delivery_mode=pika.DeliveryMode.Persistent,
+        ),
+    )
+</code></pre>
+
+<h3 id="63-consommation-consumer-postgresql">6.3 Consommation (Consumer → PostgreSQL)</h3>
+<p>Le <code>historique-consumer</code> est un conteneur dédié qui écoute la queue en boucle :</p>
+<pre class="highlight"><code class="language-python"># consumer.py
+def _process_message(channel, method, properties, body):
+    data = json.loads(body)
+    ActionLog.objects.create(
+        user_id=data.get('user_id'),
+        action=data.get('action', 'other'),
+        details=data.get('details', {}),
+        service=data.get('service', 'unknown'),
+    )
+    channel.basic_ack(delivery_tag=method.delivery_tag)
+</code></pre>
+
+<h3 id="64-mecanisme-de-fallback">6.4 Mécanisme de fallback</h3>
+<p>Si RabbitMQ est indisponible, le <code>HistoriqueService</code> bascule automatiquement sur un appel HTTP direct vers <code>/api/history/log/</code>. Ceci assure que les logs ne sont jamais perdus.</p>
+<hr />
+<h2 id="7-securite-et-authentification">7. Sécurité et authentification</h2>
+<h3 id="71-flux-dauthentification">7.1 Flux d'authentification</h3>
+<pre class="highlight"><code>Utilisateur → POST /api/auth/login/ → Auth Service → JWT Token
+                                                          │
+Utilisateur → GET /gallery/api/images/                    │
+              Header: Authorization: Bearer &lt;token&gt; ──────┘
+                                          │
+                              Gallery Service
+                              (valide le JWT via Auth)
+</code></pre>
+
+<h3 id="72-rbac-role-based-access-control">7.2 RBAC (Role-Based Access Control)</h3>
+<table>
+<thead>
+<tr>
+<th>Permission</th>
+<th>User</th>
+<th>Admin</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gérer ses propres images</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Analyser avec l'IA</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Voir l'historique personnel</td>
+<td>✅</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Lister tous les utilisateurs</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>Modifier les rôles</td>
+<td>❌</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<h3 id="73-mesures-de-securite">7.3 Mesures de sécurité</h3>
+<ul>
+<li><strong>JWT partagé</strong> : secret commun entre tous les services (<code>JWT_SECRET</code>)</li>
+<li><strong>Cache: no-store</strong> : empêche le navigateur de mettre en cache les réponses API échouées</li>
+<li><strong>CSRF exempt</strong> : les API REST utilisent l'authentification par token (pas de cookies)</li>
+<li><strong>Isolation réseau</strong> : tous les services sur un réseau Docker privé (<code>wams-net</code>)</li>
+</ul>
+<hr />
+<h2 id="8-resilience-et-tolerance-aux-pannes">8. Résilience et tolérance aux pannes</h2>
+<h3 id="81-auto-detection-et-recuperation">8.1 Auto-détection et récupération</h3>
+<p>Le frontend implémente un mécanisme de <strong>self-healing</strong> :</p>
+<ol>
+<li><strong>Polling santé</strong> : toutes les 8 secondes, le dashboard interroge <code>/health/</code> de chaque service</li>
+<li><strong>Détection de panne</strong> : si Gallery tombe, les données sont effacées instantanément (pas besoin de rafraîchir)</li>
+<li><strong>Récupération automatique</strong> : dès que Gallery redevient sain, les données sont rechargées automatiquement</li>
+<li><strong>Mutex</strong> : un verrou empêche les chargements concurrents qui pourraient saturer les connexions</li>
+</ol>
+<h3 id="82-independance-des-services">8.2 Indépendance des services</h3>
+<table>
+<thead>
+<tr>
+<th>Scénario de panne</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Gallery hors ligne</td>
+<td>Quick Scan fonctionne toujours, Auth et History restent verts</td>
+</tr>
+<tr>
+<td>AI hors ligne</td>
+<td>Upload et galerie fonctionnent, seule la vérification est indisponible</td>
+</tr>
+<tr>
+<td>RabbitMQ hors ligne</td>
+<td>Fallback HTTP automatique pour les logs</td>
+</tr>
+<tr>
+<td>Consul hors ligne</td>
+<td>Les services utilisent les URLs de fallback (variables d'environnement)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="9-deploiement">9. Déploiement</h2>
+<h3 id="91-conteneurisation">9.1 Conteneurisation</h3>
+<p>Chaque microservice est encapsulé dans son propre conteneur Docker :</p>
+<pre class="highlight"><code>wams-traefik          → Reverse Proxy (Traefik v2.11)
+wams-consul           → Service Registry (Consul 1.19)
+wams-rabbitmq         → Message Broker (RabbitMQ 3.13)
+wams-postgres         → Base de données (PostgreSQL 16)
+wams-auth             → Authentication Service (Django 5)
+wams-gallery          → GalleryImage Service (Django 5)
+wams-ai               → AI Service (Django 5 + PyTorch)
+wams-historique       → Historique Service API (Django 5)
+wams-historique-consumer → Worker RabbitMQ (Python)
+wams-frontend         → Interface Web (Next.js 15)
+</code></pre>
+
+<h3 id="92-orchestration-docker-compose">9.2 Orchestration Docker Compose</h3>
+<p>Le fichier <code>docker-compose.yml</code> définit les 10 services avec :
+- <strong>Dépendances</strong> : <code>depends_on</code> avec health checks (<code>service_healthy</code>)
+- <strong>Volumes persistants</strong> : <code>postgres-data</code> (données DB), <code>gallery-media</code> (images)
+- <strong>Réseau privé</strong> : <code>wams-net</code> (bridge)
+- <strong>Redémarrage automatique</strong> : <code>restart: unless-stopped</code></p>
+<h3 id="93-deploiement-multi-serveurs">9.3 Déploiement multi-serveurs</h3>
+<p>Chaque conteneur tourne sur son propre serveur virtuel Docker, satisfaisant l'exigence §2.7 du cahier des charges. La preuve est obtenue via :</p>
+<pre class="highlight"><code class="language-bash">$ docker compose ps
+NAME                      STATUS
+wams-traefik              Up
+wams-consul               Up
+wams-rabbitmq             Up (healthy)
+wams-postgres             Up (healthy)
+wams-auth                 Up
+wams-gallery              Up
+wams-ai                   Up
+wams-historique           Up
+wams-historique-consumer  Up
+wams-frontend             Up
+</code></pre>
+
+<hr />
+<h2 id="10-conformite-aux-exigences">10. Conformité aux exigences</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Exigence (PDF §2)</th>
+<th>Solution implémentée</th>
+<th>Statut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2.1</td>
+<td>Application REST métier</td>
+<td>Gallery Service — CRUD Images, Albums, Tags, Favoris, Vérification IA</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2.2</td>
+<td>Service d'authentification</td>
+<td>Auth Service — JWT avec rôles (user/admin) + RBAC</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2.3</td>
+<td>Application UI/UX</td>
+<td>Frontend Next.js — 6 pages, design glassmorphism, monitoring temps réel</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2.4</td>
+<td>Communication asynchrone</td>
+<td>RabbitMQ — queue durable <code>wams.action_logs</code> + consumer dédié + fallback HTTP</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2.5</td>
+<td>Service Registry/Discovery</td>
+<td>Consul — enregistrement automatique + résolution dynamique</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2.6</td>
+<td>Reverse Proxy / Load Balancer</td>
+<td>Traefik v2 — routage PathPrefix, dashboard UI, découverte Docker</td>
+<td>✅</td>
+</tr>
+<tr>
+<td>2.7</td>
+<td>Déploiement multi-serveurs</td>
+<td>Docker Compose — 10 conteneurs isolés sur réseau privé</td>
+<td>✅</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="11-guide-de-deploiement">11. Guide de déploiement</h2>
+<h3 id="prerequis">Prérequis</h3>
+<ul>
+<li>Docker Desktop ≥ 4.x</li>
+<li>Docker Compose ≥ 2.x</li>
+</ul>
+<h3 id="lancement">Lancement</h3>
+<pre class="highlight"><code class="language-bash"># 1. Cloner le dépôt
+git clone &lt;repo-url&gt;
+cd AI_Projects
+
+# 2. Vérifier la configuration (.env)
+cat .env  # Mots de passe, secrets JWT, etc.
+
+# 3. Construire et lancer
+docker compose up --build
+
+# 4. Vérifier (attendre ~3-5 min pour le premier démarrage)
+docker compose ps
+</code></pre>
+
+<h3 id="interfaces">Interfaces</h3>
+<table>
+<thead>
+<tr>
+<th>Interface</th>
+<th>URL</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application principale</td>
+<td>http://localhost</td>
+</tr>
+<tr>
+<td>Traefik Dashboard</td>
+<td>http://localhost:8080</td>
+</tr>
+<tr>
+<td>Consul UI</td>
+<td>http://localhost:8500</td>
+</tr>
+<tr>
+<td>RabbitMQ Management</td>
+<td>http://localhost:15672</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="12-conclusion">12. Conclusion</h2>
+<p>Le projet <strong>VerifAI</strong> implémente l'intégralité des contraintes techniques du cahier des charges WAMS 2025. L'architecture microservices assure une séparation claire des responsabilités, une tolérance aux pannes élevée et une extensibilité naturelle.</p>
+<p>Les points forts de l'implémentation :</p>
+<ul>
+<li><strong>4 microservices Django</strong> indépendants avec bases de données isolées</li>
+<li><strong>Communication asynchrone</strong> via RabbitMQ avec fallback HTTP automatique</li>
+<li><strong>Découverte de services</strong> via Consul avec résolution dynamique</li>
+<li><strong>Reverse proxy</strong> Traefik avec routage dynamique par labels Docker</li>
+<li><strong>Interface utilisateur</strong> moderne et réactive avec récupération automatique</li>
+<li><strong>Intelligence artificielle</strong> intégrée pour la détection de manipulations</li>
+<li><strong>Déploiement conteneurisé</strong> avec 10 services sur Docker Compose</li>
+</ul>
+<hr />
+<p><em>Rapport généré le 29 avril 2026 — Projet WAMS 2025</em></p>
+</body>
+</html>
